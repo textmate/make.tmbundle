@@ -29,6 +29,12 @@
 			</array>
 		</dict>
 		<dict>
+			<key>match</key>
+			<string>\$\(\w+\)</string>
+			<key>name</key>
+			<string>variable.makefile</string>
+		</dict>
+		<dict>
 			<key>comment</key>
 			<string>Don't treat escaped backticks as interpolation.</string>
 			<key>match</key>
