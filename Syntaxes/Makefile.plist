@@ -29,6 +29,12 @@
 			</array>
 		</dict>
 		<dict>
+			<key>comment</key>
+			<string>Don't treat escaped backticks as interpolation.</string>
+			<key>match</key>
+			<string>\\`</string>
+		</dict>
+		<dict>
 			<key>begin</key>
 			<string>`</string>
 			<key>end</key>
