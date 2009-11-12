@@ -11,6 +11,8 @@
 
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
+require ENV["TM_SUPPORT_PATH"] + "/lib/ui"
+require ENV["TM_SUPPORT_PATH"] + "/lib/exit_codes"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
 
 TextMate::Executor.make_project_master_current_document
@@ -21,6 +23,13 @@ ENV["TM_MAKE_FILE"] = ENV["TM_PROJECT_DIRECTORY"] + "/Makefile" if ENV["TM_MAKE_
 flags = ["-w"]
 flags &lt;&lt; "-f" + File.basename(ENV["TM_MAKE_FILE"])
 flags &lt;&lt; ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
+
+targets = `make -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -f`.split.collect{|t| {"title" =&gt; t} }
+selection = TextMate::UI.menu(targets)
+
+TextMate::exit_discard if selection == nil
+ENV["TM_MAKE_TARGET"] = selection['title']
+
 flags &lt;&lt; ENV["TM_MAKE_TARGET"] unless ENV["TM_MAKE_TARGET"].nil?
 
 ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"].nil? ? "default" : ENV["TM_MAKE_TARGET"]
@@ -46,12 +55,12 @@ end
 	<key>input</key>
 	<string>document</string>
 	<key>keyEquivalent</key>
-	<string>@b</string>
+	<string>~@b</string>
 	<key>name</key>
-	<string>Build</string>
+	<string>Build Target…</string>
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>uuid</key>
-	<string>19F9C045-7BCC-429B-8C68-967B6BD15B84</string>
+	<string>6E5653CE-68E0-42E5-BF29-B3AB323BC218</string>
 </dict>
 </plist>
