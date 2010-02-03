@@ -15,6 +15,7 @@ require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
 
 TextMate::Executor.make_project_master_current_document
 
+ENV["TM_PROJECT_DIRECTORY"] ||= File.dirname(ENV["TM_FILEPATH"])
 Dir.chdir(ENV["TM_PROJECT_DIRECTORY"])
 ENV["TM_MAKE_FILE"] = ENV["TM_PROJECT_DIRECTORY"] + "/Makefile" if ENV["TM_MAKE_FILE"].nil? or not File.file?(ENV["TM_MAKE_FILE"])
 
