@@ -24,7 +24,7 @@ flags &lt;&lt; "-f" + File.basename(ENV["TM_MAKE_FILE"])
 flags &lt;&lt; ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
 flags &lt;&lt; ENV["TM_MAKE_TARGET"] unless ENV["TM_MAKE_TARGET"].nil?
 
-ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"].nil? ? "default" : ENV["TM_MAKE_TARGET"]
+ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"] || "default"
 
 Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
 

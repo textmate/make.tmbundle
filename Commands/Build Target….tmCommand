@@ -33,7 +33,7 @@ ENV["TM_MAKE_TARGET"] = selection['title']
 
 flags &lt;&lt; ENV["TM_MAKE_TARGET"] unless ENV["TM_MAKE_TARGET"].nil?
 
-ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"].nil? ? "default" : ENV["TM_MAKE_TARGET"]
+ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"] || "default"
 
 Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
 
