@@ -90,7 +90,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^([^\t ]+:(?!\=))\s*.*</string>
+			<string>^([^\t ]+\s*:(?!\=))\s*.*</string>
 			<key>name</key>
 			<string>meta.function.makefile</string>
 		</dict>
