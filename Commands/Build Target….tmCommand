@@ -25,7 +25,7 @@ flags = ["-w"]
 flags &lt;&lt; "-f" + File.basename(ENV["TM_MAKE_FILE"])
 flags &lt;&lt; ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
 
-targets = `make -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -f`.split.collect{|t| {"title" =&gt; t} }
+targets = `make -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -fu`.split.collect{|t| {"title" =&gt; t} }
 selection = TextMate::UI.menu(targets)
 
 TextMate::exit_discard if selection == nil
