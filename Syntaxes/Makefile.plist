@@ -38,7 +38,9 @@
 			<key>comment</key>
 			<string>Don't treat escaped backticks as interpolation.</string>
 			<key>match</key>
-			<string>\\`</string>
+			<string>\\[`\\]</string>
+			<key>name</key>
+			<string>constant.character.escape.makefile</string>
 		</dict>
 		<dict>
 			<key>begin</key>
