@@ -32,7 +32,7 @@
 			<key>match</key>
 			<string>\$\(\w+\)</string>
 			<key>name</key>
-			<string>variable.makefile</string>
+			<string>variable.other.makefile</string>
 		</dict>
 		<dict>
 			<key>comment</key>
