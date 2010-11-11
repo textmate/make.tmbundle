@@ -13,6 +13,8 @@ require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
 
+TM_MAKE = e_sh(ENV['TM_MAKE'] || 'make')
+
 TextMate::Executor.make_project_master_current_document
 
 ENV["TM_PROJECT_DIRECTORY"] ||= File.dirname(ENV["TM_FILEPATH"])
@@ -29,11 +31,11 @@ ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"] || "default"
 Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
 
 dirs = [ENV['TM_PROJECT_DIRECTORY']]
-TextMate::Executor.run("make", flags, :verb =&gt; "Making") do |line, type|
-  if line =~ /^make.*?: Entering directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
+TextMate::Executor.run(TM_MAKE, flags, :verb =&gt; "Making") do |line, type|
+  if line =~ /^g?make.*?: Entering directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
     dirs.unshift($1)
     ""
-  elsif line =~ /^make.*?: Leaving directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
+  elsif line =~ /^g?make.*?: Leaving directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
     dirs.delete($1)
     ""
   elsif line =~ /^(.*?):(?:(\d+):)?\s*(.*?)$/ and not $1.nil?
