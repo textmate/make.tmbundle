@@ -40,7 +40,7 @@ ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"] || "default"
 Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
 
 dirs = [ENV['TM_PROJECT_DIRECTORY']]
-TextMate::Executor.run(TM_MAKE, flags, :verb =&gt; "Making") do |line, type|
+TextMate::Executor.run(TM_MAKE, flags, :verb =&gt; "Making", :use_hashbang =&gt; false) do |line, type|
   if line =~ /^g?make.*?: Entering directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
     dirs.unshift($1)
     ""
