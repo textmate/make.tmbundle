@@ -383,16 +383,50 @@
 		<key>interpolation</key>
 		<dict>
 			<key>begin</key>
-			<string>`</string>
+			<string>(?=`)</string>
 			<key>end</key>
-			<string>`</string>
+			<string>(?!\G)</string>
 			<key>name</key>
-			<string>string.interpolated.backtick.makefile</string>
+			<string>meta.embedded.line.shell</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
+					<key>begin</key>
+					<string>`</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.makefile</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
 					<string>source.shell</string>
+					<key>end</key>
+					<string>(`)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.makefile</string>
+						</dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>source.shell</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.interpolated.backtick.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>source.shell</string>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>
