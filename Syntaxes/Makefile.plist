@@ -9,10 +9,6 @@
 		<string>GNUmakefile</string>
 		<string>OCamlMakefile</string>
 	</array>
-	<key>foldingStartMarker</key>
-	<string>^(((override\s*)?define)|ifdef|ifndef|ifeq|ifneq)\b</string>
-	<key>foldingStopMarker</key>
-	<string>^(endef|endif)\b</string>
 	<key>name</key>
 	<string>Makefile</string>
 	<key>patterns</key>
