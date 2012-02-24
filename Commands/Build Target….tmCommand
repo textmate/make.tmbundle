@@ -23,11 +23,13 @@ ENV["TM_PROJECT_DIRECTORY"] ||= File.dirname(ENV["TM_FILEPATH"])
 Dir.chdir(ENV["TM_PROJECT_DIRECTORY"])
 ENV["TM_MAKE_FILE"] = ENV["TM_PROJECT_DIRECTORY"] + "/Makefile" if ENV["TM_MAKE_FILE"].nil? or not File.file?(ENV["TM_MAKE_FILE"])
 
+Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
+
 flags = ["-w"]
 flags &lt;&lt; "-f" + File.basename(ENV["TM_MAKE_FILE"])
 flags &lt;&lt; ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
 
-targets = `#{TM_MAKE} -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -fu`.split.collect{|t| {"title" =&gt; t} }
+targets = `#{TM_MAKE} -f#{File.basename(ENV["TM_MAKE_FILE"])} -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -fu`.split.collect{|t| {"title" =&gt; t} }
 selection = TextMate::UI.menu(targets)
 
 TextMate::exit_discard if selection == nil
@@ -36,8 +38,6 @@ ENV["TM_MAKE_TARGET"] = selection['title']
 flags &lt;&lt; ENV["TM_MAKE_TARGET"] unless ENV["TM_MAKE_TARGET"].nil?
 
 ENV["TM_DISPLAYNAME"] = ENV["TM_MAKE_TARGET"] || "default"
-
-Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
 
 dirs = [ENV['TM_PROJECT_DIRECTORY']]
 TextMate::Executor.run(TM_MAKE, flags, :verb =&gt; "Making", :use_hashbang =&gt; false) do |line, type|
@@ -57,13 +57,21 @@ end
 </string>
 	<key>input</key>
 	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>~@b</string>
 	<key>name</key>
 	<string>Build Target…</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
 	<key>uuid</key>
 	<string>6E5653CE-68E0-42E5-BF29-B3AB323BC218</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
