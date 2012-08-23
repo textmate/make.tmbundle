@@ -11,24 +11,16 @@
 
 require ENV["TM_BUNDLE_SUPPORT"] + '/lib/make.rb'
 
-require ENV["TM_SUPPORT_PATH"] + "/lib/ui"
-require ENV["TM_SUPPORT_PATH"] + "/lib/exit_codes"
-
-targets = `#{TM_MAKE} -f#{TM_MAKE_FILE} -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -fu`.split.collect{|t| {"title" =&gt; t} }
-selection = TextMate::UI.menu(targets)
-
-TextMate::exit_discard if selection == nil
-
-perform_make(selection['title'])
+perform_make(ENV["TM_MAKE_TARGET"])
 </string>
 	<key>input</key>
 	<string>document</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>keyEquivalent</key>
-	<string>~@b</string>
+	<string>@b</string>
 	<key>name</key>
-	<string>Build Target…</string>
+	<string>Build</string>
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
@@ -36,7 +28,7 @@ perform_make(selection['title'])
 	<key>outputLocation</key>
 	<string>newWindow</string>
 	<key>uuid</key>
-	<string>6E5653CE-68E0-42E5-BF29-B3AB323BC218</string>
+	<string>B0AEB756-AA59-4771-AA6F-03114ADFA4EC</string>
 	<key>version</key>
 	<integer>2</integer>
 </dict>
