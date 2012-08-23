@@ -36,6 +36,9 @@ def perform_make(target = nil)
     elsif line =~ /^g?make.*?: Leaving directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
       dirs.delete($1)
       ""
+    elsif line =~ /^\s*(.*?)\((\d+),(\d+)\):\s*((?:warning|error)\s+.*)$/ and not $1.nil?
+      # smcs (C#)
+      make_txmt_link(dirs, $1, $2, $3, $4)
     elsif line =~ /^(.*?):(?:(\d+):)?(?:(\d+):)?\s*(.*?)$/ and not $1.nil?
       # GCC, et al
       make_txmt_link(dirs, $1, $2, $3, $4)
