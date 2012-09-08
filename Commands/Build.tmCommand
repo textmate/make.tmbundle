@@ -29,6 +29,8 @@ perform_make(ENV["TM_MAKE_TARGET"])
 	<string>newWindow</string>
 	<key>scope</key>
 	<string>attr.project.make - (text dyn.selection)</string>
+	<key>semanticClass</key>
+	<string>process.build.make</string>
 	<key>uuid</key>
 	<string>B0AEB756-AA59-4771-AA6F-03114ADFA4EC</string>
 	<key>version</key>

@@ -27,6 +27,8 @@ perform_make(ENV["TM_MAKE_RUN_TARGET"] || "run")
 	<string>html</string>
 	<key>outputLocation</key>
 	<string>newWindow</string>
+	<key>semanticClass</key>
+	<string>process.run.make</string>
 	<key>uuid</key>
 	<string>E63C448C-ACD2-40D3-B3F6-5A00AFD9C795</string>
 	<key>version</key>

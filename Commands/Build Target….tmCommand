@@ -37,6 +37,8 @@ perform_make(selection['title'])
 	<string>newWindow</string>
 	<key>scope</key>
 	<string>attr.project.make</string>
+	<key>semanticClass</key>
+	<string>process.alternate.build.target.make</string>
 	<key>uuid</key>
 	<string>6E5653CE-68E0-42E5-BF29-B3AB323BC218</string>
 	<key>version</key>
