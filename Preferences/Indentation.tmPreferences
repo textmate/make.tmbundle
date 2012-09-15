@@ -3,22 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Miscellaneous</string>
+	<string>Indentation</string>
 	<key>scope</key>
 	<string>source.makefile</string>
 	<key>settings</key>
 	<dict>
-		<key>shellVariables</key>
-		<array>
-			<dict>
-				<key>name</key>
-				<string>TM_COMMENT_START</string>
-				<key>value</key>
-				<string># </string>
-			</dict>
-		</array>
+		<key>disableIndentCorrections</key>
+		<string>1</string>
+		<key>increaseIndentPattern</key>
+		<string>^[^\t ]+:</string>
+		<key>indentOnPaste</key>
+		<string>simple</string>
 	</dict>
 	<key>uuid</key>
-	<string>E05AF624-5BD8-4A54-A0E8-F80E8191D69E</string>
+	<string>FA4E2642-684D-44FC-AC3A-1513718119AC</string>
 </dict>
 </plist>
