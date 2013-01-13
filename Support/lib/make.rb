@@ -8,12 +8,8 @@ TM_MAKE = e_sh(ENV['TM_MAKE'] || 'make')
 
 TextMate::Executor.make_project_master_current_document
 
-# Find our project directory
-ENV["TM_PROJECT_DIRECTORY"] ||= File.dirname(ENV["TM_FILEPATH"])
-
 # Find and verify our makefile
-Dir.chdir(ENV["TM_PROJECT_DIRECTORY"])
-ENV["TM_MAKE_FILE"] = ENV["TM_PROJECT_DIRECTORY"] + "/Makefile" if ENV["TM_MAKE_FILE"].nil? or not File.file?(ENV["TM_MAKE_FILE"])
+ENV["TM_MAKE_FILE"] = File.expand_path('Makefile', ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"]) unless File.file?(ENV["TM_MAKE_FILE"].to_s)
 
 # Go next to the makefile
 Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
@@ -24,12 +20,10 @@ TM_MAKE_FLAGS << "-f" + TM_MAKE_FILE
 TM_MAKE_FLAGS << ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
 
 def perform_make(target = nil)
-  ENV["TM_DISPLAYNAME"] = target || "default"
-
   dirs = [ENV['TM_PROJECT_DIRECTORY']]
   flags = TM_MAKE_FLAGS
   flags << target unless target.nil?
-  TextMate::Executor.run(TM_MAKE, flags, :verb => "Making", :use_hashbang => false) do |line, type|
+  TextMate::Executor.run(TM_MAKE, flags, :verb => "Making", :noun => (target || "default"), :use_hashbang => false) do |line, type|
     if line =~ /^g?make.*?: Entering directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
       dirs.unshift($1)
       ""
