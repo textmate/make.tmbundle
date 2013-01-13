@@ -30,27 +30,23 @@ def perform_make(target = nil)
     elsif line =~ /^g?make.*?: Leaving directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
       dirs.delete($1)
       ""
-    elsif line =~ /^\s*(.*?)\((\d+),(\d+)\):\s*((?:warning|error)\s+.*)$/ and not $1.nil?
+    elsif line =~ /^\s*((.*?)\((\d+),(\d+)\):)(\s*(?:warning|error)\s+.*)$/ and not $1.nil?
       # smcs (C#)
-      make_txmt_link(dirs, $1, $2, $3, $4)
-    elsif line =~ /^(.*?):(?:(\d+):)?(?:(\d+):)?\s*(.*?)$/ and not $1.nil?
+      make_txmt_link(dirs, $2, $3, $4, $1, $5)
+    elsif line =~ /^((.*?):(?:(\d+):)?(?:(\d+):)?)(.*?)$/ and not $1.nil?
       # GCC, et al
-      make_txmt_link(dirs, $1, $2, $3, $4)
+      make_txmt_link(dirs, $2, $3, $4, $1, $5)
     end
   end
 end
 
-def make_txmt_link(dirs, file, lineno, column, message)
+def make_txmt_link(dirs, file, lineno, column, title, message)
   path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |path| File.file? path }
   unless path.nil?
     parms =  [    "url=file://#{e_url path}" ]
     parms << [   "line=#{lineno}"            ] unless lineno.nil?
     parms << [ "column=#{column}"            ] unless column.nil?
-    info = file
-    info << " at line #{lineno}" unless lineno.nil?
-    info << ", column #{column}" unless column.nil?
-    info << "."
-    info = info.gsub('&', '&amp;').gsub('<', '&lt;').gsub('"', '&quot;')
-    "<a href=\"txmt://open?#{parms.join '&'}\" title=\"#{info}\">#{htmlize message}</a><br>\n"
+    info = file.gsub('&', '&amp;').gsub('<', '&lt;').gsub('"', '&quot;')
+    "<a href=\"txmt://open?#{parms.join '&'}\" title=\"#{info}\">#{title}</a>#{htmlize message}<br>\n"
   end
 end
