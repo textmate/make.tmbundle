@@ -13,9 +13,11 @@ require ENV["TM_BUNDLE_SUPPORT"] + '/lib/make.rb'
 
 require ENV["TM_SUPPORT_PATH"] + "/lib/ui"
 require ENV["TM_SUPPORT_PATH"] + "/lib/exit_codes"
+require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
 
-targets = `#{TM_MAKE} -f#{TM_MAKE_FILE} -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -fu`.split.collect{|t| {"title" =&gt; t} }
-TextMate::exit_show_tool_tip "No root targets found in ‘#{TM_MAKE_FILE}’.\n\nOnly targets declarated as “phony”\nare considered to be root targets." if targets.empty?
+makefile = find_makefile_path
+targets = `#{TM_MAKE} -f#{e_sh makefile} -np|grep -B1 PHONY|grep -Ev '^(#|--|\\.)'|grep -Eo '^[^:]+'|sort -fu`.split.collect{|t| {"title" =&gt; t} }
+TextMate::exit_show_tool_tip "No root targets found in ‘#{makefile}’.\n\nOnly targets declarated as “phony”\nare considered to be root targets." if targets.empty?
 selection = TextMate::UI.menu(targets)
 
 TextMate::exit_discard if selection == nil

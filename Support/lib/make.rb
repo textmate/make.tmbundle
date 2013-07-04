@@ -5,25 +5,23 @@ require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
 
 TM_MAKE = e_sh(ENV['TM_MAKE'] || 'make')
-
 TextMate::Executor.make_project_master_current_document
 
-# Find and verify our makefile
-ENV["TM_MAKE_FILE"] = File.expand_path('Makefile', ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"]) unless File.file?(ENV["TM_MAKE_FILE"].to_s)
-
-# Go next to the makefile
-Dir.chdir(File.dirname(ENV["TM_MAKE_FILE"]))
-TM_MAKE_FILE = File.basename(ENV["TM_MAKE_FILE"])
-
-TM_MAKE_FLAGS = ["-w"]
-TM_MAKE_FLAGS << "-f" + TM_MAKE_FILE
-TM_MAKE_FLAGS << ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
+def find_makefile_path ()
+  return ENV["TM_MAKE_FILE"] if ENV["TM_MAKE_FILE"] && File.file?(ENV["TM_MAKE_FILE"])
+  return File.expand_path('Makefile', ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"])
+end
 
 def perform_make(target = nil)
-  dirs = [ENV['TM_PROJECT_DIRECTORY']]
-  flags = TM_MAKE_FLAGS
+  dir, makefile = File.split(find_makefile_path)
+
+  flags = ["-w"]
+  flags << "-f" + makefile
+  flags << ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
   flags << target unless target.nil?
-  TextMate::Executor.run(TM_MAKE, flags, :verb => "Making", :noun => (target || "default"), :use_hashbang => false) do |line, type|
+
+  dirs = [dir, ENV['TM_PROJECT_DIRECTORY']]
+  TextMate::Executor.run(TM_MAKE, flags, :chdir => dir, :verb => "Making", :noun => (target || "default"), :use_hashbang => false) do |line, type|
     if line =~ /^g?make.*?: Entering directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
       dirs.unshift($1)
       ""
