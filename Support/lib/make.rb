@@ -8,12 +8,26 @@ TM_MAKE = e_sh(ENV['TM_MAKE'] || 'make')
 TextMate::Executor.make_project_master_current_document
 
 def find_makefile_path ()
-  return ENV["TM_MAKE_FILE"] if ENV["TM_MAKE_FILE"] && File.file?(ENV["TM_MAKE_FILE"])
-  return File.expand_path('Makefile', ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"])
+  candidates = [ ENV["TM_MAKE_FILE"], File.expand_path('Makefile', ENV["TM_PROJECT_DIRECTORY"]) ]
+
+  dir = ENV["TM_DIRECTORY"]
+  while dir && dir != ENV["TM_PROJECT_DIRECTORY"] && dir != "/" && dir[0] == ?/
+    candidates << File.join(dir, "Makefile")
+    dir = File.dirname(dir)
+  end
+
+  candidates.find { |path| path && File.file?(path) }
 end
 
 def perform_make(target = nil)
-  dir, makefile = File.split(find_makefile_path)
+  path = find_makefile_path
+  if path.nil?
+    puts "No Makefile found.<br>"
+    puts "Set <tt>TM_MAKE_FILE</tt> in Preferences → Variable."
+    exit
+  end
+
+  dir, makefile = File.split(path)
 
   flags = ["-w"]
   flags << "-f" + makefile
