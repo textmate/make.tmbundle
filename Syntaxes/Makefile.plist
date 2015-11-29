@@ -649,7 +649,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>\G(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value)\s</string>
+							<string>\G(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|guile)\s</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>1</key>
