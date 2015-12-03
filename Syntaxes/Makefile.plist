@@ -682,7 +682,7 @@
 							<key>contentName</key>
 							<string>variable.other.makefile</string>
 							<key>end</key>
-							<string>\)</string>
+							<string>(?=\))</string>
 							<key>name</key>
 							<string>meta.scope.function-call.makefile</string>
 							<key>patterns</key>
