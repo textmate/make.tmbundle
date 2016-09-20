@@ -55,6 +55,13 @@ end
 def make_txmt_link(dirs, file, lineno, column, title, message)
   path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |path| File.file? path }
   unless path.nil?
+    unless lineno.nil?
+      value = (message =~ /^\s*(error|warning|note):/ ? $1 : "warning") + ":#{message}"
+      args = [ "--line=#{lineno}:#{column || '1'}", "--set-mark=#{value}" ]
+      args << path if path != ENV['TM_FILEPATH'] || !ENV.has_key?('TM_FILE_IS_UNTITLED')
+      system(ENV['TM_MATE'], *args)
+    end
+
     parms =  [    "url=file://#{e_url path}" ]
     parms << [   "line=#{lineno}"            ] unless lineno.nil?
     parms << [ "column=#{column}"            ] unless column.nil?
