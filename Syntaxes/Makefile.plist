@@ -647,13 +647,13 @@
 						</dict>
 						<dict>
 							<key>match</key>
-							<string>\G(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKEFLAGS|MAKECMDGOALS|CURDIR|SUFFIXES|\.LIBPATTERNS)(?=\s*\))</string>
+							<string>(?&lt;=\()(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKEFLAGS|MAKECMDGOALS|CURDIR|SUFFIXES|\.LIBPATTERNS)(?=\s*\))</string>
 							<key>name</key>
 							<string>variable.language.makefile</string>
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>\G(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|file|guile)\s</string>
+							<string>(?&lt;=\()(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|file|guile)\s</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>1</key>
@@ -682,7 +682,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>\G(origin|flavor)\s(?=[^\s)]+\s*\))</string>
+							<string>(?&lt;=\()(origin|flavor)\s(?=[^\s)]+\s*\))</string>
 							<key>contentName</key>
 							<string>variable.other.makefile</string>
 							<key>end</key>
@@ -699,7 +699,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>\G(?!\))</string>
+							<string>(?&lt;=\()(?!\))</string>
 							<key>end</key>
 							<string>(?=\))</string>
 							<key>name</key>
