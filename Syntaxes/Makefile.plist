@@ -19,6 +19,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#variables</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#variable-assignment</string>
 		</dict>
 		<dict>
