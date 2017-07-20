@@ -64,7 +64,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>\n</string>
+					<string>(?=[^\\])$</string>
 					<key>name</key>
 					<string>comment.line.number-sign.makefile</string>
 					<key>patterns</key>
@@ -489,7 +489,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>^(?!\t)</string>
+			<string>[^\\]$</string>
 			<key>name</key>
 			<string>meta.scope.target.makefile</string>
 			<key>patterns</key>
@@ -498,7 +498,7 @@
 					<key>begin</key>
 					<string>\G</string>
 					<key>end</key>
-					<string>^</string>
+					<string>(?=[^\\])$</string>
 					<key>name</key>
 					<string>meta.scope.prerequisites.makefile</string>
 					<key>patterns</key>
