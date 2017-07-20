@@ -685,6 +685,14 @@
 							<string>(?&lt;=\()(origin|flavor)\s(?=[^\s)]+\s*\))</string>
 							<key>contentName</key>
 							<string>variable.other.makefile</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>support.function.$1.makefile</string>
+								</dict>
+							</dict>
 							<key>end</key>
 							<string>(?=\))</string>
 							<key>name</key>
