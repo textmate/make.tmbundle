@@ -147,7 +147,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>^(?:(override)\s*)?(define)\s*([^\s]+)\s*(=|\?=|:=|\+=)?(?=\s)</string>
+					<string>^\s*(?:(override)\s*)?(define)\s*([^\s]+)\s*(=|\?=|:=|\+=)?(?=\s)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -172,7 +172,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>^(endef)\b</string>
+					<string>^\s*(endef)\b</string>
 					<key>name</key>
 					<string>meta.scope.conditional.makefile</string>
 					<key>patterns</key>
@@ -285,7 +285,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>^(ifdef|ifndef)\s*([^\s]+)(?=\s)</string>
+					<string>^\s*(ifdef|ifndef)\s*([^\s]+)(?=\s)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -305,7 +305,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>^(endif)\b</string>
+					<string>^\s*(endif)\b</string>
 					<key>name</key>
 					<string>meta.scope.conditional.makefile</string>
 					<key>patterns</key>
@@ -331,7 +331,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>^(ifeq|ifneq)(?=\s)</string>
+					<string>^\s*(ifeq|ifneq)(?=\s)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -341,7 +341,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>^(endif)\b</string>
+					<string>^\s*(endif)\b</string>
 					<key>name</key>
 					<string>meta.scope.conditional.makefile</string>
 					<key>patterns</key>
@@ -367,7 +367,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>^else(?=\s)</string>
+							<string>^\s*else(?=\s)</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>0</key>
