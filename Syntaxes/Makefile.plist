@@ -437,6 +437,24 @@
 				</dict>
 			</array>
 		</dict>
+		<key>braces-interpolation</key>
+		<dict>
+			<key>begin</key>
+			<string>\(</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#variables</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#braces-interpolation</string>
+				</dict>
+			</array>
+		</dict>
 		<key>recipe</key>
 		<dict>
 			<key>begin</key>
@@ -671,6 +689,10 @@
 								<dict>
 									<key>include</key>
 									<string>#variables</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#braces-interpolation</string>
 								</dict>
 								<dict>
 									<key>match</key>
