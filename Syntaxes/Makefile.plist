@@ -629,22 +629,14 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.variable.makefile</string>
-						</dict>
-					</dict>
 					<key>match</key>
-					<string>(\$?\$)[@%&lt;?^+*]</string>
+					<string>\$[^\(\)]</string>
 					<key>name</key>
 					<string>variable.language.makefile</string>
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>\$?\$\(</string>
+					<string>(\$|(?&lt=\$))\(</string>
 					<key>captures</key>
 					<dict>
 						<key>0</key>
