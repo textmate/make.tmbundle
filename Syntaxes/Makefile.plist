@@ -636,7 +636,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(\$|(?&lt=\$))\(</string>
+					<string>(\$|(?&lt;=\$))\(</string>
 					<key>captures</key>
 					<dict>
 						<key>0</key>
@@ -646,7 +646,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>\)|((?&lt!\\)\n)</string>
+					<string>\)|((?&lt;!\\)\n)</string>
 					<key>name</key>
 					<string>string.interpolated.makefile</string>
 					<key>patterns</key>
@@ -673,7 +673,7 @@
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>(?=\)|((?&lt!\\)\n))</string>
+							<string>(?=\)|((?&lt;!\\)\n))</string>
 							<key>name</key>
 							<string>meta.scope.function-call.makefile</string>
 							<key>patterns</key>
@@ -729,7 +729,7 @@
 							<key>begin</key>
 							<string>(?&lt;=\()(?!\))</string>
 							<key>end</key>
-							<string>(?=\)|((?&lt!\\)\n))</string>
+							<string>(?=\)|((?&lt;!\\)\n))</string>
 							<key>name</key>
 							<string>variable.other.makefile</string>
 							<key>patterns</key>
