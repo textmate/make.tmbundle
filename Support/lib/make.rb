@@ -4,6 +4,7 @@ require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
 
+TM_SHELL = e_sh(ENV['TM_SHELL'] || 'bash')
 TM_MAKE = e_sh(ENV['TM_MAKE'] || 'make')
 TextMate::Executor.make_project_master_current_document
 
@@ -29,13 +30,14 @@ def perform_make(target = nil)
 
   dir, makefile = File.split(path)
 
-  flags = ["-w"]
+  flags = [TM_MAKE]
+  flags << "-w"
   flags << "-f" + makefile
   flags << ENV["TM_MAKE_FLAGS"] unless ENV["TM_MAKE_FLAGS"].nil?
   flags << target unless target.nil?
 
   dirs = [dir, ENV['TM_PROJECT_DIRECTORY']]
-  TextMate::Executor.run(TM_MAKE, flags, :chdir => dir, :verb => "Making", :noun => (target || "default"), :use_hashbang => false) do |line, type|
+  TextMate::Executor.run(TM_SHELL, ["-c","-l",flags.join(' ')], :chdir => dir, :verb => "Making", :noun => (target || "default"), :use_hashbang => false) do |line, type|
     if line =~ /^g?make.*?: Entering directory `(.*?)'$/ and not $1.nil? and File.directory?($1)
       dirs.unshift($1)
       ""
