@@ -27,7 +27,7 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#recipe</string>
+			<string>#target</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -437,7 +437,7 @@
 				</dict>
 			</array>
 		</dict>
-		<key>recipe</key>
+		<key>target</key>
 		<dict>
 			<key>begin</key>
 			<string>^(?!\t)([^:]*)(:)(?!\=)</string>
