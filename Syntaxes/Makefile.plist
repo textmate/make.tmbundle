@@ -31,6 +31,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#recipe</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#directives</string>
 		</dict>
 	</array>
@@ -525,43 +529,31 @@
 						</dict>
 					</array>
 				</dict>
+			</array>
+		</dict>
+		<key>recipe</key>
+		<dict>
+			<key>begin</key>
+			<string>^\t</string>
+			<key>end</key>
+			<string>[^\\]$</string>
+			<key>name</key>
+			<string>meta.scope.recipe.makefile</string>
+			<key>patterns</key>
+			<array>
 				<dict>
-					<key>begin</key>
-					<string>^\t</string>
+					<key>match</key>
+					<string>\\\n</string>
 					<key>name</key>
-					<string>meta.scope.recipe.makefile</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>patterns</key>
-									<array>
-										<dict>
-											<key>match</key>
-											<string>\\\n</string>
-											<key>name</key>
-											<string>constant.character.escape.continuation.makefile</string>
-										</dict>
-										<dict>
-											<key>include</key>
-											<string>#variables</string>
-										</dict>
-										<dict>
-											<key>include</key>
-											<string>source.shell</string>
-										</dict>
-									</array>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>.+\n?</string>
-						</dict>
-					</array>
-					<key>while</key>
-					<string>^\t</string>
+					<string>constant.character.escape.continuation.makefile</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variables</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.shell</string>
 				</dict>
 			</array>
 		</dict>
