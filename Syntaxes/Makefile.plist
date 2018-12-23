@@ -484,7 +484,15 @@
 		<key>recipe</key>
 		<dict>
 			<key>begin</key>
-			<string>^\t</string>
+			<string>^\t([+-@]*)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.$1.makefile</string>
+				</dict>
+			</dict>
 			<key>end</key>
 			<string>[^\\]$</string>
 			<key>name</key>
