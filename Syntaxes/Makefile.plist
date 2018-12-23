@@ -391,56 +391,6 @@
 				</dict>
 			</array>
 		</dict>
-		<key>shell-interpolation</key>
-		<dict>
-			<key>begin</key>
-			<string>(?=`)</string>
-			<key>end</key>
-			<string>(?!\G)</string>
-			<key>name</key>
-			<string>meta.embedded.line.shell</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>`</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.makefile</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>source.shell</string>
-					<key>end</key>
-					<string>(`)</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.makefile</string>
-						</dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>source.shell</string>
-						</dict>
-					</dict>
-					<key>name</key>
-					<string>string.interpolated.backtick.makefile</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.shell</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
 		<key>target</key>
 		<dict>
 			<key>begin</key>
@@ -591,10 +541,6 @@
 				<dict>
 					<key>include</key>
 					<string>#variables</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#shell-interpolation</string>
 				</dict>
 			</array>
 		</dict>
