@@ -501,10 +501,6 @@
 					<key>include</key>
 					<string>#variables</string>
 				</dict>
-				<dict>
-					<key>include</key>
-					<string>source.shell</string>
-				</dict>
 			</array>
 		</dict>
 		<key>variable-assignment</key>
