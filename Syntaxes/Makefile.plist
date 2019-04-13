@@ -484,7 +484,7 @@
 		<key>recipe</key>
 		<dict>
 			<key>begin</key>
-			<string>^\t([+-@]*)</string>
+			<string>^\t([+\-@]*)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
