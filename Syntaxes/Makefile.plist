@@ -202,6 +202,10 @@
 							<key>include</key>
 							<string>#comment</string>
 						</dict>
+						<dict>
+							<key>include</key>
+							<string>#directives</string>
+						</dict>
 					</array>
 				</dict>
 				<dict>
