@@ -511,10 +511,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#comment</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#variables</string>
 				</dict>
 			</array>
