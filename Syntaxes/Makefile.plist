@@ -518,7 +518,7 @@
 		<key>variable-assignment</key>
 		<dict>
 			<key>begin</key>
-			<string>(^[ ]*|\G\s*)([^\s]+)\s*((?&lt;![?:+!])=|\?=|:=|\+=|!=)</string>
+			<string>(^[ ]*|\G\s*)([^\s:#=]+)\s*((?&lt;![?:+!])=|\?=|:=|\+=|!=)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>2</key>
