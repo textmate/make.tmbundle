@@ -27,7 +27,7 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#target</string>
+			<string>#directives</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -35,7 +35,7 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#directives</string>
+			<string>#target</string>
 		</dict>
 	</array>
 	<key>repository</key>
