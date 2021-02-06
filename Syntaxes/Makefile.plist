@@ -336,6 +336,17 @@
 							</dict>
 							<key>end</key>
 							<string>^</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#variables</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#comment</string>
+								</dict>
+							</array>
 						</dict>
 						<dict>
 							<key>include</key>
