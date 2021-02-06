@@ -293,53 +293,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>^\s*(ifdef|ifndef)\s*([^\s]+)(?=\s)</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>keyword.control.$1.makefile</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>variable.other.makefile</string>
-						</dict>
-						<key>3</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.separator.key-value.makefile</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>^\s*(endif)\b</string>
-					<key>name</key>
-					<string>meta.scope.conditional.makefile</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>begin</key>
-							<string>\G(?!\n)</string>
-							<key>end</key>
-							<string>^</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#comment</string>
-								</dict>
-							</array>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>$self</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>^\s*(ifeq|ifneq)(?=\s)</string>
+					<string>^\s*(ifeq|ifneq|ifdef|ifndef)(?=\s)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
