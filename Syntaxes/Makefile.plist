@@ -368,7 +368,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>^else(?=\s)</string>
+							<string>^else(?=\s|$)</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>0</key>
