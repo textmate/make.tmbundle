@@ -40,6 +40,13 @@
 	</array>
 	<key>repository</key>
 	<dict>
+		<key>comma</key>
+		<dict>
+			<key>match</key>
+			<string>,</string>
+			<key>name</key>
+			<string>punctuation.separator.delimeter.comma.makefile</string>
+		</dict>
 		<key>comment</key>
 		<dict>
 			<key>begin</key>
@@ -315,6 +322,10 @@
 							<array>
 								<dict>
 									<key>include</key>
+									<string>#comma</string>
+								</dict>
+								<dict>
+									<key>include</key>
 									<string>#variables</string>
 								</dict>
 								<dict>
@@ -338,6 +349,10 @@
 							<string>^</string>
 							<key>patterns</key>
 							<array>
+								<dict>
+									<key>include</key>
+									<string>#comma</string>
+								</dict>
 								<dict>
 									<key>include</key>
 									<string>#variables</string>
@@ -737,6 +752,10 @@
 					<array>
 						<dict>
 							<key>include</key>
+							<string>#comma</string>
+						</dict>
+						<dict>
+							<key>include</key>
 							<string>#variables</string>
 						</dict>
 						<dict>
@@ -780,6 +799,10 @@
 					<string>meta.scope.function-call.makefile</string>
 					<key>patterns</key>
 					<array>
+						<dict>
+							<key>include</key>
+							<string>#comma</string>
+						</dict>
 						<dict>
 							<key>include</key>
 							<string>#variables</string>
