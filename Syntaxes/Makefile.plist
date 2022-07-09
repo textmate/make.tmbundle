@@ -50,7 +50,7 @@
 		<key>comment</key>
 		<dict>
 			<key>begin</key>
-			<string>(^[ ]+)?(?=#)</string>
+			<string>(^[ ]+)?((?&lt;!\\)(\\\\)*)(?=#)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
