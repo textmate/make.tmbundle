@@ -9,6 +9,8 @@
 		<string>GNUmakefile</string>
 		<string>OCamlMakefile</string>
 	</array>
+	<key>firstLineMatch</key>
+	<string>^#![ \\t]*/.*\bmake\b.*</string>
 	<key>name</key>
 	<string>Makefile</string>
 	<key>patterns</key>
