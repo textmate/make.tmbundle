@@ -338,7 +338,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>^\s*else(?=\s)</string>
+							<string>^\s*else(?=\s)\s*(ifeq|ifneq|ifdef|ifndef)*(?=\s)</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>0</key>
