@@ -10,6 +10,8 @@
 		<string>OCamlMakefile</string>
 		<string>mk</string>
 	</array>
+	<key>firstLineMatch</key>
+	<string>^#![ \\t]*/.*\bmake\b.*</string>
 	<key>name</key>
 	<string>Makefile</string>
 	<key>patterns</key>
@@ -20,7 +22,15 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#variables</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#variable-assignment</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#directives</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -28,15 +38,22 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#directives</string>
+			<string>#target</string>
 		</dict>
 	</array>
 	<key>repository</key>
 	<dict>
+		<key>comma</key>
+		<dict>
+			<key>match</key>
+			<string>,</string>
+			<key>name</key>
+			<string>punctuation.separator.delimeter.comma.makefile</string>
+		</dict>
 		<key>comment</key>
 		<dict>
 			<key>begin</key>
-			<string>(^[ \t]+)?(?=#)</string>
+			<string>(^[ ]+)?((?&lt;!\\)(\\\\)*)(?=#)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -61,7 +78,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>\n</string>
+					<string>(?=[^\\])$</string>
 					<key>name</key>
 					<string>comment.line.number-sign.makefile</string>
 					<key>patterns</key>
@@ -144,7 +161,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>^(?:(override)\s*)?(define)\s*([^\s]+)\s*(=|\?=|:=|\+=)?(?=\s)</string>
+					<string>^\s*(?:(override)\s*)?(define)\s*([^\s]+)\s*(=|\?=|:=|\+=)?(?=\s)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -169,7 +186,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>^(endef)\b</string>
+					<string>^\s*(endef)\b</string>
 					<key>name</key>
 					<string>meta.scope.conditional.makefile</string>
 					<key>patterns</key>
@@ -193,7 +210,7 @@
 						</dict>
 						<dict>
 							<key>include</key>
-							<string>#comment</string>
+							<string>#directives</string>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -286,53 +303,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>^(ifdef|ifndef)\s*([^\s]+)(?=\s)</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>keyword.control.$1.makefile</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>variable.other.makefile</string>
-						</dict>
-						<key>3</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.separator.key-value.makefile</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>^(endif)\b</string>
-					<key>name</key>
-					<string>meta.scope.conditional.makefile</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>begin</key>
-							<string>\G(?!\n)</string>
-							<key>end</key>
-							<string>^</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#comment</string>
-								</dict>
-							</array>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>$self</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>^(ifeq|ifneq)(?=\s)</string>
+					<string>^\s*(ifeq|ifneq|ifdef|ifndef)(?=\s)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -342,7 +313,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>^(endif)\b</string>
+					<string>^\s*(endif)\b</string>
 					<key>name</key>
 					<string>meta.scope.conditional.makefile</string>
 					<key>patterns</key>
@@ -358,6 +329,10 @@
 							<array>
 								<dict>
 									<key>include</key>
+									<string>#comma</string>
+								</dict>
+								<dict>
+									<key>include</key>
 									<string>#variables</string>
 								</dict>
 								<dict>
@@ -368,7 +343,7 @@
 						</dict>
 						<dict>
 							<key>begin</key>
-							<string>^else(?=\s)</string>
+							<string>^\s*else(?=\s)\s*(ifeq|ifneq|ifdef|ifndef)*(?=\s)</string>
 							<key>beginCaptures</key>
 							<dict>
 								<key>0</key>
@@ -379,6 +354,21 @@
 							</dict>
 							<key>end</key>
 							<string>^</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#comma</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#variables</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#comment</string>
+								</dict>
+							</array>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -388,57 +378,7 @@
 				</dict>
 			</array>
 		</dict>
-		<key>interpolation</key>
-		<dict>
-			<key>begin</key>
-			<string>(?=`)</string>
-			<key>end</key>
-			<string>(?!\G)</string>
-			<key>name</key>
-			<string>meta.embedded.line.shell</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>`</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.makefile</string>
-						</dict>
-					</dict>
-					<key>contentName</key>
-					<string>source.shell</string>
-					<key>end</key>
-					<string>(`)</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.string.makefile</string>
-						</dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>source.shell</string>
-						</dict>
-					</dict>
-					<key>name</key>
-					<string>string.interpolated.backtick.makefile</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>source.shell</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<key>recipe</key>
+		<key>target</key>
 		<dict>
 			<key>begin</key>
 			<string>^(?!\t)([^:]*)(:)(?!\=)</string>
@@ -490,7 +430,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>^(?!\t)</string>
+			<string>[^\\]$</string>
 			<key>name</key>
 			<string>meta.scope.target.makefile</string>
 			<key>patterns</key>
@@ -499,7 +439,7 @@
 					<key>begin</key>
 					<string>\G</string>
 					<key>end</key>
-					<string>^</string>
+					<string>(?=[^\\])$</string>
 					<key>name</key>
 					<string>meta.scope.prerequisites.makefile</string>
 					<key>patterns</key>
@@ -526,56 +466,55 @@
 						</dict>
 					</array>
 				</dict>
+			</array>
+		</dict>
+		<key>recipe</key>
+		<dict>
+			<key>begin</key>
+			<string>^\t([+\-@]*)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
 				<dict>
-					<key>begin</key>
-					<string>^\t</string>
 					<key>name</key>
-					<string>meta.scope.recipe.makefile</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>0</key>
-								<dict>
-									<key>patterns</key>
-									<array>
-										<dict>
-											<key>match</key>
-											<string>\\\n</string>
-											<key>name</key>
-											<string>constant.character.escape.continuation.makefile</string>
-										</dict>
-										<dict>
-											<key>include</key>
-											<string>#variables</string>
-										</dict>
-										<dict>
-											<key>include</key>
-											<string>source.shell</string>
-										</dict>
-									</array>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>.+\n?</string>
-						</dict>
-					</array>
-					<key>while</key>
-					<string>^\t</string>
+					<string>keyword.control.$1.makefile</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>[^\\]$</string>
+			<key>name</key>
+			<string>meta.scope.recipe.makefile</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\\n</string>
+					<key>name</key>
+					<string>constant.character.escape.continuation.makefile</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variables</string>
 				</dict>
 			</array>
 		</dict>
 		<key>variable-assignment</key>
 		<dict>
 			<key>begin</key>
-			<string>(^[ ]*|\G\s*)([^\s]+)\s*(=|\?=|:=|\+=)</string>
+			<string>(^[ ]*|\G\s*)([^\s:#=]+)\s*((?&lt;![?:+!])=|\?=|:=|\+=|!=)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>2</key>
 				<dict>
 					<key>name</key>
 					<string>variable.other.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#variables</string>
+						</dict>
+					</array>
 				</dict>
 				<key>3</key>
 				<dict>
@@ -601,6 +540,52 @@
 					<key>include</key>
 					<string>#variables</string>
 				</dict>
+			</array>
+		</dict>
+		<key>interpolation</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#parentheses-interpolation</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#braces-interpolation</string>
+				</dict>
+			</array>
+		</dict>
+		<key>parentheses-interpolation</key>
+		<dict>
+			<key>begin</key>
+			<string>\(</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#variables</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolation</string>
+				</dict>
+			</array>
+		</dict>
+		<key>braces-interpolation</key>
+		<dict>
+			<key>begin</key>
+			<string>{</string>
+			<key>end</key>
+			<string>}</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#variables</string>
+				</dict>
 				<dict>
 					<key>include</key>
 					<string>#interpolation</string>
@@ -612,22 +597,38 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.variable.makefile</string>
-						</dict>
-					</dict>
+					<key>include</key>
+					<string>#simple-variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variable-parentheses</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variable-braces</string>
+				</dict>
+			</array>
+		</dict>
+		<key>simple-variable</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
 					<key>match</key>
-					<string>(\$?\$)[@%&lt;?^+*]</string>
+					<string>\$[^(){}]</string>
 					<key>name</key>
 					<string>variable.language.makefile</string>
 				</dict>
+			</array>
+		</dict>
+		<key>variable-parentheses</key>
+		<dict>
+			<key>patterns</key>
+			<array>
 				<dict>
 					<key>begin</key>
-					<string>\$?\$\(</string>
+					<string>\$\(</string>
 					<key>captures</key>
 					<dict>
 						<key>0</key>
@@ -637,7 +638,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>\)</string>
+					<string>\)|((?&lt;!\\)\n)</string>
 					<key>name</key>
 					<string>string.interpolated.makefile</string>
 					<key>patterns</key>
@@ -647,71 +648,303 @@
 							<string>#variables</string>
 						</dict>
 						<dict>
+							<key>include</key>
+							<string>#builtin-variable-parentheses</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#function-variable-parentheses</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#flavor-variable-parentheses</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#another-variable-parentheses</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>variable-braces</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\${</string>
+					<key>captures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.variable.makefile</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>}|((?&lt;!\\)\n)</string>
+					<key>name</key>
+					<string>string.interpolated.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#variables</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#builtin-variable-braces</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#function-variable-braces</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#flavor-variable-braces</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#another-variable-braces</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>builtin-variable-parentheses</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;=\()(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKEFLAGS|MAKECMDGOALS|CURDIR|SUFFIXES|\.LIBPATTERNS)(?=\s*\))</string>
+					<key>name</key>
+					<string>variable.language.makefile</string>
+				</dict>
+			</array>
+		</dict>
+		<key>builtin-variable-braces</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;={)(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKEFLAGS|MAKECMDGOALS|CURDIR|SUFFIXES|\.LIBPATTERNS)(?=\s*})</string>
+					<key>name</key>
+					<string>variable.language.makefile</string>
+				</dict>
+			</array>
+		</dict>
+		<key>function-variable-parentheses</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?&lt;=\()(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|file|guile)\s</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.function.$1.makefile</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=\)|((?&lt;!\\)\n))</string>
+					<key>name</key>
+					<string>meta.scope.function-call.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comma</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#variables</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#interpolation</string>
+						</dict>
+						<dict>
 							<key>match</key>
-							<string>\G(MAKEFILES|VPATH|SHELL|MAKESHELL|MAKE|MAKELEVEL|MAKEFLAGS|MAKECMDGOALS|CURDIR|SUFFIXES|\.LIBPATTERNS)(?=\s*\))</string>
+							<string>%|\*</string>
 							<key>name</key>
-							<string>variable.language.makefile</string>
+							<string>constant.other.placeholder.makefile</string>
 						</dict>
 						<dict>
-							<key>begin</key>
-							<string>\G(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|file|guile)\s</string>
-							<key>beginCaptures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>support.function.$1.makefile</string>
-								</dict>
-							</dict>
-							<key>end</key>
-							<string>(?=\))</string>
+							<key>match</key>
+							<string>\\\n</string>
 							<key>name</key>
-							<string>meta.scope.function-call.makefile</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#variables</string>
-								</dict>
-								<dict>
-									<key>match</key>
-									<string>%|\*</string>
-									<key>name</key>
-									<string>constant.other.placeholder.makefile</string>
-								</dict>
-							</array>
+							<string>constant.character.escape.continuation.makefile</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>function-variable-braces</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?&lt;={)(subst|patsubst|strip|findstring|filter(-out)?|sort|word(list)?|firstword|lastword|dir|notdir|suffix|basename|addsuffix|addprefix|join|wildcard|realpath|abspath|info|error|warning|shell|foreach|if|or|and|call|eval|value|file|guile)\s</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.function.$1.makefile</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=}|((?&lt;!\\)\n))</string>
+					<key>name</key>
+					<string>meta.scope.function-call.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comma</string>
 						</dict>
 						<dict>
-							<key>begin</key>
-							<string>\G(origin|flavor)\s(?=[^\s)]+\s*\))</string>
-							<key>contentName</key>
-							<string>variable.other.makefile</string>
-							<key>end</key>
-							<string>(?=\))</string>
-							<key>name</key>
-							<string>meta.scope.function-call.makefile</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#variables</string>
-								</dict>
-							</array>
+							<key>include</key>
+							<string>#variables</string>
 						</dict>
 						<dict>
-							<key>begin</key>
-							<string>\G(?!\))</string>
-							<key>end</key>
-							<string>(?=\))</string>
+							<key>include</key>
+							<string>#interpolation</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>%|\*</string>
 							<key>name</key>
-							<string>variable.other.makefile</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#variables</string>
-								</dict>
-							</array>
+							<string>constant.other.placeholder.makefile</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\\n</string>
+							<key>name</key>
+							<string>constant.character.escape.continuation.makefile</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>flavor-variable-parentheses</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?&lt;=\()(origin|flavor)\s(?=[^\s)]+\s*\))</string>
+					<key>contentName</key>
+					<string>variable.other.makefile</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.function.$1.makefile</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=\))</string>
+					<key>name</key>
+					<string>meta.scope.function-call.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#variables</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>flavor-variable-braces</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?&lt;={)(origin|flavor)\s(?=[^\s}]+\s*})</string>
+					<key>contentName</key>
+					<string>variable.other.makefile</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.function.$1.makefile</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=})</string>
+					<key>name</key>
+					<string>meta.scope.function-call.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#variables</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>another-variable-parentheses</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?&lt;=\()(?!\))</string>
+					<key>end</key>
+					<string>(?=\)|((?&lt;!\\)\n))</string>
+					<key>name</key>
+					<string>variable.other.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#variables</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\\n</string>
+							<key>name</key>
+							<string>constant.character.escape.continuation.makefile</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>another-variable-braces</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?&lt;={)(?!})</string>
+					<key>end</key>
+					<string>(?=}|((?&lt;!\\)\n))</string>
+					<key>name</key>
+					<string>variable.other.makefile</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#variables</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\\n</string>
+							<key>name</key>
+							<string>constant.character.escape.continuation.makefile</string>
 						</dict>
 					</array>
 				</dict>
